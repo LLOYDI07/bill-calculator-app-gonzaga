@@ -1,1 +1,91 @@
-homepage_styles.css
+*	{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Arial;
+}
+
+body {
+	background: rgb(173, 197, 194);
+}
+
+.top-bar {
+	width: 100%;
+	padding: 20px 30px;
+	dislplay: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.logo-section {
+	dislplay: flex;
+	align-items: center;
+	gap: 50px;
+}
+
+.logo {
+	width: 100px;
+	height: 100px;
+}
+
+.brand {
+	font-size: 25px;
+	font-weight: bold;x;
+	margin-top: 5px;
+	color: rgb(92, 112, 109);
+	text-shadow: 1px 1px 5px ;
+}
+
+.menu-six {
+	dislplay: grid;
+	grid-template-columns: repeat(3, 10px);
+	grid-template-rows: repeat(2, 1px);
+	gap: 8px;
+}
+
+.menu-six span {
+	width: 10px;
+	height: 10px;
+	background: rgba(92, 112, 109);
+	border-radius: 50%;
+}
+
+.main {
+	dislplay:flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 40px 60px;
+	min-height: 80vh;
+}
+
+.left-content {
+	max-width: 350px;
+}
+
+.tagline {
+	font-size: 16px;
+	color: rgb(92, 112, 109);
+	margin-bottom: 30px;
+}
+
+.buttons {
+	display: flex;
+	gap: 15px;
+}
+.btn-register {
+	padding: 10px 25px;
+	background: rgba(121, 142, 139);
+	border-radius: 25px;
+	text-decoration: none;
+	color: rgb(212, 226, 224);
+	font-weight: bold;
+	transition: 0.2s;
+}
+
+.btn-register:hover {
+	background-color: rgb(150, 180, 180) ;
+}
+
+.btn-register:active {
+	opacity: 0.20;
+}
