@@ -1,91 +1,144 @@
-*	{
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: Arial;
-}
-
+/* General body styling */
 body {
-	background: rgb(173, 197, 194);
+    background: rgb(173, 197, 194);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
 }
 
-.top-bar {
-	width: 100%;
-	padding: 20px 30px;
-	dislplay: flex;
-	justify-content: space-between;
-	align-items: center;
+/* --- Header --- */
+.header {
+    height: 120px;
+    display: flex;
+    flex-direction: row;
+    
+    justify-content: space-between;
+    align-items: center;
+    
+    padding: 0 40px;
+    box-sizing: border-box;
 }
 
-.logo-section {
-	dislplay: flex;
-	align-items: center;
-	gap: 50px;
+.left-logo-section {
+    display: flex;
+    align-items: center;
 }
 
 .logo {
-	width: 100px;
-	height: 100px;
+    width: 100px; 
+    height: 100px; 
 }
 
-.brand {
-	font-size: 25px;
-	font-weight: bold;x;
-	margin-top: 5px;
-	color: rgb(92, 112, 109);
-	text-shadow: 1px 1px 5px ;
+.logo-text {
+    font-size: 25px;
+    font-weight: bold;
+    color: rgb(92, 112, 109);
+    text-shadow: 1px 1px 5px;
+    margin-left: 20px; /* Reduced margin */
 }
 
-.menu-six {
-	dislplay: grid;
-	grid-template-columns: repeat(3, 10px);
-	grid-template-rows: repeat(2, 1px);
-	gap: 8px;
+
+.dot-icon {
+    display: flex;
+    gap: 8px;
 }
 
-.menu-six span {
-	width: 10px;
-	height: 10px;
-	background: rgba(92, 112, 109);
-	border-radius: 50%;
+.dot-icon span {
+    display: block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: rgb(92, 112, 109);
 }
 
-.main {
-	dislplay:flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 40px 60px;
-	min-height: 80vh;
+/* --- Main 2-Column Layout --- */
+.container {
+    display: flex;
+    /* Fill remaining height after header */
+    height: calc(100vh - 120px);
 }
 
+.left-pane {
+    flex-basis: 50%;
+    padding: 50px 0 80px 100px;
+    box-sizing: border-box;
+    
+    /* Use flex to push buttons to the bottom */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.right-pane {
+    flex-basis: 50%;
+    /* Set to relative to position images inside it */
+    position: relative;
+    
+    /* These properties help center the relatively-positioned images */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- Left Pane Content --- */
 .left-content {
-	max-width: 350px;
+    width: 450px;
+    line-height: 1.6;
+    letter-spacing: 1px;
 }
 
-.tagline {
-	font-size: 16px;
-	color: rgb(92, 112, 109);
-	margin-bottom: 30px;
+.greetings-text {
+    font-weight: bold;
+    font-size: 16px;
+    width: 350px;
+    color: rgb(92, 112, 109);
+    text-shadow: 1px 1px 4px;
+    margin: 0; 
+    margin-top: 100px;
 }
 
 .buttons {
-	display: flex;
-	gap: 15px;
-}
-.btn-register {
-	padding: 10px 25px;
-	background: rgba(121, 142, 139);
-	border-radius: 25px;
-	text-decoration: none;
-	color: rgb(212, 226, 224);
-	font-weight: bold;
-	transition: 0.2s;
+    display: flex;
+    gap: 15px;
 }
 
-.btn-register:hover {
-	background-color: rgb(150, 180, 180) ;
+.btn-register,
+.btn-login {
+    padding: 15px 35px; /* Consistent padding */
+    background: rgba(121, 142, 139);
+    border-radius: 25px;
+    text-decoration: none;
+    color: rgb(212, 226, 224);
+    font-weight: bold;
+    transition: 0.2s;
+    display: inline-block; /* Ensures padding is applied */
+    text-align: center;
 }
 
-.btn-register:active {
-	opacity: 0.20;
+.btn-register:hover,
+.btn-login:hover {
+    background-color: rgb(150, 180, 180);
+}
+
+.btn-register:active,
+.btn-login:active {
+    opacity: 0.20;
+}
+
+/* --- Right Pane Images (Positioned) --- */
+.bill-img {
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    top: 20px;
+    left: 0;
+}
+
+.calculator-img {
+    width: 250px; /* Adjusted size */
+    height: 250px; /* Adjusted size */
+    position: absolute;
+    bottom: 40px;
+    right: 50px;
 }
