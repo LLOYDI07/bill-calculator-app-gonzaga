@@ -1,13 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="css/register_page.css">
-	<link rel="icon" type="image/x-icon" href="images/logo.png">
-	<title>Electric Bill Calculator</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- I created a new CSS file for this to keep it clean -->
+    <link rel="stylesheet" type="text/css" href="css/register_page.css">
+    <link rel="icon" type="image/x-icon" href="images/logo.png">
+    <title>Electric Bill Calculator - Register</title>
 </head>
+
 <body>
-	<div class="container"></div>
+    
+    <div class="grip-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="container-form">
+        <div class="register-form">
+            <h1 class="h1">Register</h1>
+            
+            <!-- The aligned subtitle -->
+            <h2 class="subtitle">Set up your account</h2>
+
+            <form action="setup-account">
+                <input class="input-field" type="text" name="name" placeholder="Name" required>
+                <input class="input-field" type="text" name="address" placeholder="Address" required>
+                <input class="input-field" type="tel" name="phone" placeholder="Phone" required>
+                <input class="input-field" type="email" name="email" placeholder="Email" required>
+                <input class="input-field" type="password" name="password" placeholder="Password" required>
+                <input class="input-field" type="password" name="confirm_password" placeholder="Confirm password" required>
+                
+                <div class="link-wrapper">
+                    <a class="link-text" href="login_page.html">Already have account?</a>
+                </div>
+
+                <div class="button-wrapper">
+                    <button type="submit" class="btn-signup">Sign up</button>
+                </div>
+            </form>
+        </div>  
+    </div>
+
 </body>
 </html>
