@@ -10,7 +10,6 @@ body {
     overflow: hidden;
 }
 
-/* --- Window Controls (Three dots top right) --- */
 .dot-icon {
     position: absolute;
     top: 20px;
@@ -74,7 +73,7 @@ body {
 }
 
 .forgot {
-    color: #3498db; 
+    color: rgb(52, 152, 219);
     font-size: 12px;
     text-decoration: none;
     font-weight: bold;
@@ -85,8 +84,10 @@ body {
 }
 
 .no-account {
-    color: #3498db;
+    color: rgb(52, 152, 219);
+
     font-size: 12px;
+    margin-top: 50px;
     text-decoration: none;
     font-weight: bold;
 }
