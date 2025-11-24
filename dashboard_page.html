@@ -1,1 +1,79 @@
-dashboard_page.html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/dashboard_page.css">
+    <link rel="icon" type="image/x-icon" href="images/logo.png">
+    <title>Electric Bill Calculator</title>
+</head>
+<body>
+
+    <div class="container-bar">
+        <aside class="sidebar">
+            <div class="logo-section">
+                <img src="images/logo.png" alt="Logo" class="logo">
+                <p class="logo-text">ELBC</p>
+            </div>
+
+            <nav class="nav-menu">
+                <!-- 'active' class makes it look selected -->
+                <a href="" class="nav-item active">
+                    <img src="images/dashboard_icon.png" alt="icon" class="nav-icon">
+                    <span>Dashboard</span>
+                </a>
+                <a href="calculator_page.html" class="nav-item">
+                    <img src="images/calculator_icon.png" alt="icon" class="nav-icon">
+                    <span>Calculator</span>
+                </a>
+                <a href="result_page.html" class="nav-item">
+                    <img src="images/result_icon.png" alt="icon" class="nav-icon">
+                    <span>Results</span>
+                </a>
+                <a href="profile_page.html" class="nav-item">
+                    <img src="images/profile_icon.png" alt="icon" class="nav-icon">
+                    <span>Profile</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="grip-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div class="content-wrapper">
+                <h1 class="greetings-text">Start calculating today,<br> saving energy and money<br> begins here!</h1>
+
+                <!-- The Result Card -->
+                <div class="results-card">
+                    <h3 class="card-title">Recent Result <span class="card-subtitle">(Last Month)</span></h3>
+
+                    <div class="month-list">
+                        <div class="month-item">
+                            <span class="month-name">January</span>
+                            <span class="year-small">2025</span>
+                        </div>
+                        <div class="month-item">
+                            <span class="month-name">February</span>
+                            <span class="year-small">2025</span>
+                        </div>
+                        <div class="month-item">
+                            <span class="month-name">March</span>
+                            <span class="year-small">2025</span>
+                        </div>
+                        <div class="month-item">
+                            <span class="month-name">April</span>
+                            <span class="year-small">2025</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
