@@ -1,1 +1,102 @@
-calculator_page.html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/calculator_page.css">
+    <link rel="icon" type="image/x-icon" href="images/logo.png">
+    <title>Electric Bill Calculator - Calculator</title>
+</head>
+<body>
+
+    <div class="dot-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+
+    <div class="container-bar2">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-section">
+                <img src="images/logo.png" alt="Logo" class="logo">
+                <p class="logo-text">ELBC</p>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="dashboard_page.html" class="nav-item">
+                    <img src="images/dashboard_icon.png" alt="icon" class="nav-icon">
+                    <span>Dashboard</span>
+                </a>
+                <!-- Active class is here now -->
+                <a href="#" class="nav-item active">
+                    <img src="images/calculator_icon.png" alt="icon" class="nav-icon">
+                    <span>Calculator</span>
+                </a>
+                <a href="result_page.html" class="nav-item">
+                    <img src="images/result_icon.png" alt="icon" class="nav-icon">
+                    <span>Results</span>
+                </a>
+                <a href="profile_page.html" class="nav-item">
+                    <img src="images/profile_icon.png" alt="icon" class="nav-icon">
+                    <span>Profile</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                
+                <!-- Calculator Card -->
+                <div class="calculator-card">
+
+                    <h2 class="form-title">Calculate your Bill now!</h2>
+
+                    <form action="calculate-form">
+                        <!-- Month Dropdown -->
+                        <div class="input-group">
+                            <!-- Month Input (Changed from Dropdown) -->
+                            <div class="input-group">
+                                <label class="input-label">Month</label>
+                                <input type="text" class="input-field" name="month" placeholder="Enter Month">
+                            </div>
+                        </div>
+
+                        <!-- Power Consumption -->
+                        <div class="input-group">
+                            <label class="input-label">Power consumption (kWh)</label>
+                            <input type="number" class="input-field" name="consumption" placeholder="Enter power consumption">
+                        </div>
+
+                        <!-- Cost per kWh -->
+                        <div class="input-group">
+                            <label class="input-label">Cost per kWh(P)</label>
+                            <input type="number" class="input-field" name="cost" placeholder="Enter cost per kWh">
+                        </div>
+
+                        <!-- Action Buttons Row -->
+                        <div class="action-row">
+                            <button type="button" class="btn-calculate">Calculate</button>
+                            <button type="reset" class="btn-reset">
+                                <!-- Refresh Icon -->
+                                &#x21bb; 
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Result Box -->
+                    <div class="result-box">
+                        <p class="result-label">Total bill for January</p>
+                        <h1 class="result-price">$0</h1>
+                        <button class="btn-save">Save result</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

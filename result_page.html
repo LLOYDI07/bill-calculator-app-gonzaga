@@ -1,1 +1,148 @@
-result_page.html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/result_page.css">
+    <link rel="icon" type="image/x-icon" href="images/logo.png">
+    <title>Electric Bill Calculator - Results</title>
+</head>
+<body>
+
+            <div class="dot-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+    <div class="container-bar3">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-section">
+                <img src="images/logo.png" alt="Logo" class="logo">
+                <p class="logo-text">ELBC</p>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="dashboard_page.html" class="nav-item">
+                    <img src="images/dashboard_icon.png" alt="icon" class="nav-icon">
+                    <span>Dashboard</span>
+                </a>
+                <a href="calculator_page.html" class="nav-item">
+                    <img src="images/calculator_icon.png" alt="icon" class="nav-icon">
+                    <span>Calculator</span>
+                </a>
+                <!-- Active Item -->
+                <a class="nav-item active">
+                    <img src="images/result_icon.png" alt="icon" class="nav-icon">
+                    <span>Results</span>
+                </a>
+                <a href="profile_page.html" class="nav-item">
+                    <img src="images/profile_icon.png" alt="icon" class="nav-icon">
+                    <span>Profile</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <div class="content-wrapper">
+                
+                <div class="results-container">
+                    <h2 class="page-title">Save results</h2>
+
+                    <!-- Results Header -->
+                    <div class="results-header">
+                        <div class="col">Month</div>
+                        <div class="col">Date</div>
+                        <div class="col">kWh</div>
+                        <div class="col">Rate</div>
+                        <div class="col">Total</div>
+                        <div class="col action-col">Action</div>
+                    </div>
+
+                    <!-- List of Rows -->
+                    <div class="results-list">
+                        
+                        <!-- Row 1 -->
+                        <div class="result-row">
+                            <div class="col month-text">January</div>
+                            <div class="col">10-19-2025</div>
+                            <div class="col">350</div>
+                            <div class="col">15</div>
+                            <div class="col total-text">1234</div>
+                            <div class="col action-col">
+                                <a href="review_page.html" class="link-review">Review</a>
+                                <span class="divider">/</span>
+                                <a href="#" class="link-delete">Delete</a>
+                            </div>
+                        </div>
+
+                        <!-- Row 2 -->
+                        <div class="result-row">
+                            <div class="col month-text">January</div>
+                            <div class="col">10-19-2025</div>
+                            <div class="col">350</div>
+                            <div class="col">15</div>
+                            <div class="col total-text">1234</div>
+                            <div class="col action-col">
+                                <a href="review_page.html" class="link-review">Review</a>
+                                <span class="divider">/</span>
+                                <a href="#" class="link-delete">Delete</a>
+                            </div>
+                        </div>
+
+                        <!-- Row 3 (HIGHEST Highlight) -->
+                        <div class="result-row">
+                            <div class="col month-text">January</div>
+                            <div class="col">10-19-2025</div>
+                            <div class="col">350</div>
+                            <div class="col">15</div>
+                            <div class="col total-text">
+                                <span class="badge-highest">Highest</span>
+                                1234
+                            </div>
+                            <div class="col action-col">
+                                <a href="review_page.html" class="link-review">Review</a>
+                                <span class="divider">/</span>
+                                <a href="#" class="link-delete">Delete</a>
+                            </div>
+                        </div>
+
+                        <!-- Row 4 -->
+                        <div class="result-row">
+                            <div class="col month-text">January</div>
+                            <div class="col">10-19-2025</div>
+                            <div class="col">350</div>
+                            <div class="col">15</div>
+                            <div class="col total-text">1234</div>
+                            <div class="col action-col">
+                                <a href="review_page.html" class="link-review">Review</a>
+                                <span class="divider">/</span>
+                                <a href="#" class="link-delete">Delete</a>
+                            </div>
+                        </div>
+                         <!-- Row 5 -->
+                         <div class="result-row">
+                            <div class="col month-text">January</div>
+                            <div class="col">10-19-2025</div>
+                            <div class="col">350</div>
+                            <div class="col">15</div>
+                            <div class="col total-text">1234</div>
+                            <div class="col action-col">
+                                <a href="review_page.html" class="link-review">Review</a>
+                                <span class="divider">/</span>
+                                <a href="#" class="link-delete">Delete</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
