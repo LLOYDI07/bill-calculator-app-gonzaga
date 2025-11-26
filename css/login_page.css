@@ -31,7 +31,7 @@ body {
     width: 320px;
     padding: 40px 40px 60px 40px;
     border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); 
     text-align: center;
 }
 
@@ -115,4 +115,7 @@ body {
 
 .btn-submit:hover {
     background-color: rgb(140, 160, 157);
+}
+.btn-submit:active{
+    background-color: rgb(121, 184, 175);
 }

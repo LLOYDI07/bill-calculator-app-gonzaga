@@ -115,3 +115,7 @@ body {
 .btn-signup:hover {
     background-color: rgb(140, 160, 157);
 }
+
+.btn-signup:active{
+    background-color: rgb(121, 184, 175);
+}
