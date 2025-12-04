@@ -1,17 +1,17 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: Arial;
     background: rgb(173, 197, 194);
     height: 100vh;
     overflow: hidden;
 }
 
-.container-bar4 { 
+.app-container { 
     display: flex; 
-    height: 100%; 
-}
+    height: 100%; }
 
+/* Sidebar */
 .sidebar {
     width: 260px;
     background-color: rgb(128, 176, 169);
@@ -21,6 +21,8 @@ body {
     box-sizing: border-box;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.05);
+    z-index: 10;
 }
 
 .logo-section { 
@@ -62,7 +64,6 @@ body {
     border-radius: 15px; 
     transition: 0.3s;
 }
-
 .nav-icon { 
     width: 30px; 
     height: 30px; 
@@ -79,233 +80,291 @@ body {
     background-color: rgba(255, 255, 255, 0.1); 
 }
 
-/* Main Content */
+/* --- Main Content --- */
 .main-content {
-    flex: 1;
+    flex: 1; 
+    position: relative;
+    padding: 40px 60px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
-.profile-header-top {
-    height: 80px;
+/* --- HEADER CONTAINER --- */
+.header-container {
+    position: absolute;
+    top: 25px;
+    right: 40px; 
     display: flex;
-    justify-content: flex-end;
     align-items: center;
-    padding-right: 50px;
-    gap: 20px;
+    z-index: 20;
+}
+
+/* User Info Styling (Now the sole header item) */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-name {
+    font-weight: bold;
+    color: rgb(70, 90, 88);
+    font-size: 20px;
     text-shadow: 1px 1px 4px;
-}
-
-.user-info { 
-    display: flex; 
-    align-items: center; 
-    gap: 15px; 
-}
-
-.user-name { 
-    font-weight: bold; 
-    color: rgb(70, 90, 88); 
-    font-size: 16px; 
+    opacity: 0.8;
 }
 
 .user-avatar {
-    width: 50px; 
-    height: 50px; 
+    width: 80px; 
+    height: 80px; 
     border-radius: 50%;
-    background-color: rgb(70, 90, 88); 
-    padding: 5px; box-sizing: border-box; 
-    filter: invert(1);
-}
-
-.dot-icon {
-    position: absolute;
-    top: 53px;
-    right: 40px;
-    display: flex;
-    gap: 8px;
-}
-
-.dot-icon span {
-    display: block; 
-    width: 12px; 
-    height: 12px;
-    border-radius: 50%; 
-    background: rgb(92, 112, 109); 
+    padding: 5px; 
+    box-sizing: border-box; 
 }
 
 /* Content Wrapper */
 .content-wrapper {
     max-width: 1200px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    overflow-y: auto; /* Enables scrolling */
-    position: relative;
-    scroll-behavior: smooth; 
 }
 
-.state-controller {
-    display: none; /* Hide the actual checkboxes */
-}
+/* --- Toggle Logic --- */
+.state-controller { display: none; }
 
-/* Profile Card */
-.profile-settings{
+.profile-card {
     background: rgba(255, 255, 255, 0.15);
     padding: 30px 40px;
     border-radius: 20px;
     width: 600px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
     margin-bottom: 40px;
-    transition: height 0.3s ease;
 }
 
-.card-header-row {
-    display: flex;
-    justify-content: space-between;
+.card-header-row { 
+    display: flex; 
+    justify-content: space-between; 
     align-items: center;
-    margin-bottom: 25px;
+    margin-bottom: 25px; 
 }
 
-.form-title { color: rgb(80, 100, 98); 
+.form-title { 
+    color: rgb(80, 100, 98); 
     margin: 0; 
-    font-size: 20px; }
+    font-size: 20px;
+    text-shadow: 1px 1px 4px;
+    opacity: 0.8; 
+}
 
-/* Input Styling */
 .input-group { 
     margin-bottom: 15px; 
 }
-.input-label {
-    display: block; font-size: 13px; 
-    font-weight: bold;
-    color: rgb(90, 110, 108); 
+
+.input-label { 
+    display: block; 
+    font-size: 13px; 
+    font-weight: bold; 
+    color: rgb(90, 110, 108);
     margin-bottom: 5px; 
     margin-left: 5px;
-}
+    text-shadow: 1px 1px 4px;
+    opacity: 0.8; 
+ }
 
-/* Default Input State (Locked) */
 .input-field {
-    width: 100%;
-    padding: 12px 15px;
-    border: none;
+    width: 100%; 
+    padding: 12px 15px; 
+    border: none; 
     border-radius: 15px;
     background: rgba(255, 255, 255, 0.25); 
     box-sizing: border-box;
-    font-size: 14px;
-    color: rgb(60, 80, 78);
-    font-weight: bold;
+    font-size: 14px; 
+    color: rgb(60, 80, 78); 
+    font-weight: bold; 
     outline: none;
     pointer-events: none; 
     transition: 0.3s;
 }
 
-/* Special case: Password field in simple view is always locked */
 .fixed-locked { 
     pointer-events: none !important; 
 }
 
-/* Special case: Fields in expanded password section always editable */
 .editable-always { 
     pointer-events: auto !important; 
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.6); 
 }
 
 .editable-always:focus { 
     background: white; 
 }
 
-/* LOGIC 1: EDIT MODE TOGGLE 
-   When #toggle-edit-mode is checked...
-*/
-
-/* 1. Unlock inputs */
 #toggle-edit-mode:checked ~ .profile-card .input-field:not(.fixed-locked) {
-    pointer-events: auto; /* Enable clicking */
+    pointer-events: auto; 
     background: rgba(255, 255, 255, 0.8); 
     border: 1px solid rgba(121, 142, 139, 0.3);
 }
 
-/* 2. Hide "Edit" button */
-#toggle-edit-mode:checked ~ .profile-card .btn-edit {
-    display: none;
+#toggle-edit-mode:checked ~ .profile-card .btn-edit { display: none; }
+
+.edit-actions { 
+    display: none; 
+    gap: 10px; 
 }
 
-/* 3. Show "Save/Cancel" buttons */
-.edit-actions { display: none; gap: 10px; }
-#toggle-edit-mode:checked ~ .profile-card .edit-actions {
-    display: flex;
+#toggle-edit-mode:checked ~ .profile-card .edit-actions { 
+    display: flex; 
 }
 
-/* Button Styling (Labels acting as buttons) */
 .btn-edit, .btn-save, .btn-cancel, .btn-change-pw, .btn-update-pw, .btn-cancel-pw {
-    padding: 8px 20px;
-    border-radius: 15px;
+    padding: 8px 20px; 
+    border-radius: 15px; 
     font-weight: bold;
-    cursor: pointer;
-    font-size: 12px;
-    text-align: center;
-    user-select: none;
+    cursor: pointer; 
+    font-size: 12px; 
+    text-align: center; 
+    user-select: none; 
     display: inline-block;
+    transition: 0.2s;
 }
 
-.btn-edit { background-color: rgb(119, 139, 136); color: white; }
-.btn-edit:hover { background-color: rgb(140, 160, 157); }
-
-.btn-save { background-color: rgb(119, 139, 136); color: white; }
-.btn-cancel { background-color: rgb(160, 160, 160); color: white; }
-
-/* LOGIC 2: PASSWORD CHANGE TOGGLE 
-   When #toggle-pw-mode is checked...
-*/
-
-.password-row { display: flex; gap: 10px; }
-.btn-change-pw { background-color: rgb(119, 139, 136); color: white; width: 100px; }
-
-/* 1. Hide Simple Password View */
-#toggle-pw-mode:checked ~ .profile-card .password-simple {
-    display: none;
+.btn-edit { 
+    background-color: rgb(119, 139, 136); 
+    color: white;
 }
 
-/* 2. Show Expanded Password View */
-.password-expanded {
-    display: none; /* Hidden by default */
-    margin-top: 20px;
-    animation: slideDown 0.4s ease forwards;
+.btn-edit:hover {
+    background-color: rgb(140, 160, 157);
 }
 
-#toggle-pw-mode:checked ~ .profile-card .password-expanded {
+.btn-edit:active {
+    background-color: rgb(121, 184, 175);
+}
+
+.btn-save { 
+    background-color: rgb(119, 139, 136); 
+    color: white; 
+}
+
+.btn-save:hover {
+    background-color: rgb(140, 160, 157);
+}
+
+.btn-save:active {
+    background-color: rgb(121, 184, 175);
+}
+
+.btn-cancel { 
+    background-color: rgb(119, 139, 136); 
+    color: white; 
+}
+
+.btn-cancel:hover {
+    background-color: rgb(140, 160, 157);
+}
+
+.btn-cancel:active {
+    background-color: rgb(255, 0, 4, 50% );
+}
+
+.password-row { 
+    display: flex; 
+    gap: 10px; 
+}
+.btn-change-pw { 
+    background-color: rgb(119, 139, 136); 
+    color: white; 
+}
+
+.btn-change-pw:hover {
+    background-color: rgb(140, 160, 157);
+}
+
+.btn-change-pw:active {
+    background-color: rgb(121, 184, 175);
+}
+
+#toggle-pw-mode:checked ~ .profile-card .password-simple { 
+    display: none; 
+}
+
+.password-expanded { 
+    display: none; 
+    margin-top: 20px; 
+    animation: slideDown 0.4s ease forwards; 
+}
+
+#toggle-pw-mode:checked ~ .profile-card .password-expanded { 
     display: block;
 }
 
-@keyframes slideDown {
-    from { 
-        opacity: 0; 
-        transform: translateY(-10px); 
+@keyframes slideDown { from { 
+    opacity: 0; 
+    transform: translateY(-10px); } to { 
+    opacity: 1; 
+    transform: translateY(0); } 
 }
 
-    to { 
-        opacity: 1; 
-        transform: translateY(0); 
-}
-}
-
-.divider {
-    border: 0;
-    border-top: 1px solid rgba(0,0,0,0.1);
-    margin-bottom: 20px;
+.divider { 
+    border: 0; 
+    border-top: 1px solid rgba(0,0,0,0.1); 
+    margin-bottom: 20px; 
 }
 
-.password-actions { display: flex; gap: 10px; margin-top: 15px; }
+.password-actions { 
+    display: flex; 
+    gap: 10px; 
+    margin-top: 15px; 
+}
 
-.btn-update-pw { background-color: rgb(119, 139, 136); color: white; }
-.btn-cancel-pw { background-color: rgb(128, 176, 169); color: white; }
+.btn-update-pw { 
+    background-color: rgb(119, 139, 136); 
+    color: white; 
+}
 
-/* Logout */
-.logout-section { margin-top: 40px; }
+.btn-update-pw:hover {
+    background-color: rgb(140, 160, 157); 
+}
+
+.btn-update-pw:active {
+    background-color: rgb(121, 184, 175);
+}
+
+.btn-cancel-pw { 
+    background-color: rgb(119, 139, 136);  
+    color: white; 
+}
+
+.btn-cancel-pw:hover {
+    background-color: rgb(140, 160, 157);
+}
+
+.btn-update-pw:active {
+    background-color: rgb(255, 0, 4, 50% );
+}
+
+.logout-section { 
+    margin-top: 40px; 
+}
+
 .btn-logout {
-    width: 100%; padding: 15px; background-color: rgb(119, 139, 136);
-    color: white; border: none; border-radius: 15px; font-weight: bold;
-    font-size: 14px; cursor: pointer; display: flex; justify-content: center;
-    align-items: center; gap: 10px;
+    width: 100%; 
+    padding: 15px; 
+    background-color: rgb(119, 139, 136);
+    color: white; border: none; 
+    border-radius: 15px; 
+    font-weight: bold;
+    font-size: 14px; cursor: pointer; 
+    display: flex; justify-content: center;
+    align-items: center; 
+    gap: 10px;
+    transition: 0.2s;
 }
-.btn-logout:hover { background-color: rgb(140, 160, 157); }
-.logout-icon-btn { width: 18px; height: 18px; filter: invert(1); }
+
+.btn-logout:hover {
+    background-color: rgb(140, 160, 157);
+}
+.logout-icon-btn { 
+    width: 25px; 
+    height: 25px; 
+    filter: invert(1); 
+}

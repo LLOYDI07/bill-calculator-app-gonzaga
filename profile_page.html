@@ -5,18 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="css/profile_page.css">
     <link rel="icon" type="image/x-icon" href="images/logo.png">
-    <title>Electric Bill Calculator</title>
-
+    <title>Electric Bill Calculator - Profile</title>
 </head>
 <body>
 
-    <div class="dot-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-    </div>
-
-    <div class="container-bar4">
+    <div class="app-container">
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="logo-section">
@@ -48,109 +41,75 @@
         <!-- Main Content -->
         <main class="main-content">
             
-            <header class="profile-header-top">
+            <!-- HEADER CONTAINER (No Window Controls) -->
+            <div class="header-container">
                 <div class="user-info">
                     <span class="user-name">Juan Dela Cruz</span>
                     <img src="images/profile_icon.png" alt="User" class="user-avatar">
                 </div>
-            </header>
+            </div>
 
             <div class="content-wrapper">
                 
-                <!-- 
-                   PURE CSS STATE CONTROLLERS 
-                   These invisible checkboxes track the state of the UI.
-                -->
+                <!-- PURE CSS STATE CONTROLLERS -->
                 <input type="checkbox" id="toggle-edit-mode" class="state-controller">
                 <input type="checkbox" id="toggle-pw-mode" class="state-controller">
 
                 <!-- Profile Settings Card -->
-                <div class="profile-settings">
+                <div class="profile-card">
                     <div class="card-header-row">
                         <h2 class="form-title">Profile settings</h2>
-                        
-                        <!-- 
-                           Edit Button (Acts as a label to check 'toggle-edit-mode') 
-                           Visible when not editing.
-                        -->
                         <label for="toggle-edit-mode" class="btn-edit">Edit</label>
-                        
-                        <!-- 
-                           Save/Cancel Buttons 
-                           Visible ONLY when 'toggle-edit-mode' is checked.
-                        -->
                         <div class="edit-actions">
-                            <!-- We can make Save submit a form or just toggle back for UI demo -->
                             <label for="toggle-edit-mode" class="btn-save">Save</label>
                             <label for="toggle-edit-mode" class="btn-cancel">Cancel</label>
                         </div>
                     </div>
 
                     <form id="profile-form">
-                        <!-- Name -->
                         <div class="input-group">
                             <label class="input-label">Name</label>
-                            <!-- Note: 'readonly' removed, controlled by CSS pointer-events -->
                             <input type="text" class="input-field" value="Juan Dela Cruz">
                         </div>
-
-                        <!-- Email -->
                         <div class="input-group">
                             <label class="input-label">Email address</label>
                             <input type="email" class="input-field" value="juandelacruz@gmail.com">
                         </div>
-
-                        <!-- Address -->
                         <div class="input-group">
                             <label class="input-label">Address</label>
                             <input type="text" class="input-field" value="Iligan City">
                         </div>
-
-                        <!-- Phone -->
                         <div class="input-group">
                             <label class="input-label">Phone</label>
                             <input type="tel" class="input-field" value="09123456789">
                         </div>
 
-                        <!-- 
-                           Password Section (Simple View) 
-                           Visible by default. Hidden when 'toggle-pw-mode' is checked.
-                        -->
+                        <!-- Password Section (Simple View) -->
                         <div class="input-group password-simple">
                             <label class="input-label">Change password</label>
                             <div class="password-row">
                                 <input type="password" class="input-field fixed-locked" value="********" readonly>
-                                <!-- Acts as a label to check 'toggle-pw-mode' -->
                                 <label for="toggle-pw-mode" class="btn-change-pw">Change</label>
                             </div>
                         </div>
 
-                        <!-- 
-                           Password Section (Expanded View) 
-                           Hidden by default. Visible when 'toggle-pw-mode' is checked.
-                        -->
+                        <!-- Password Section (Expanded View) -->
                         <div class="password-expanded">
                             <hr class="divider">
-                            
                             <div class="input-group">
                                 <label class="input-label">Current password</label>
                                 <input type="password" class="input-field editable-always" placeholder="Enter current password">
                             </div>
-
                             <div class="input-group">
                                 <label class="input-label">New password</label>
                                 <input type="password" class="input-field editable-always" placeholder="Enter new password">
                             </div>
-
                             <div class="input-group">
                                 <label class="input-label">Confirm password</label>
                                 <input type="password" class="input-field editable-always" placeholder="Confirm new password">
                             </div>
-
                             <div class="password-actions">
-                                <!-- Updates and closes the expanded view -->
                                 <label for="toggle-pw-mode" class="btn-update-pw">Update password</label>
-                                <!-- Cancels and closes the expanded view -->
                                 <label for="toggle-pw-mode" class="btn-cancel-pw">Cancel</label>
                             </div>
                         </div>
@@ -159,16 +118,14 @@
                     <!-- Logout Button -->
                     <div class="logout-section">
                         <button class="btn-logout">
-                            <img src="images/logout_icon.png" alt="Logout" class="logout-icon-btn"> 
+                            <img src="images/logout.png" alt="Logout" class="logout-icon-btn"> 
                             Log out
                         </button>
                     </div>
-
                 </div>
 
             </div>
         </main>
     </div>
-
 </body>
 </html>
