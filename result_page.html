@@ -9,13 +9,7 @@
 </head>
 <body>
 
-            <div class="dot-icon">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-
-    <div class="container-bar3">
+    <div class="app-container">
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="logo-section">
@@ -32,8 +26,7 @@
                     <img src="images/calculator_icon.png" alt="icon" class="nav-icon">
                     <span>Calculator</span>
                 </a>
-                <!-- Active Item -->
-                <a class="nav-item active">
+                <a href="#" class="nav-item active">
                     <img src="images/result_icon.png" alt="icon" class="nav-icon">
                     <span>Results</span>
                 </a>
@@ -50,99 +43,217 @@
             <div class="content-wrapper">
                 
                 <div class="results-container">
-                    <h2 class="page-title">Save results</h2>
-
-                    <!-- Results Header -->
-                    <div class="results-header">
-                        <div class="col">Month</div>
-                        <div class="col">Date</div>
-                        <div class="col">kWh</div>
-                        <div class="col">Rate</div>
-                        <div class="col">Total</div>
-                        <div class="col action-col">Action</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h2 class="page-title">Saved Calculations</h2>
+                        <button onclick="deleteAllCalculations()" class="btn-delete-all" style="padding: 10px 20px; background-color: rgb(200, 80, 80); color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold;">
+                            Clear All
+                        </button>
                     </div>
 
-                    <!-- List of Rows -->
-                    <div class="results-list">
-                        
-                        <!-- Row 1 -->
-                        <div class="result-row">
-                            <div class="col month-text">January</div>
-                            <div class="col">10-19-2025</div>
-                            <div class="col">350</div>
-                            <div class="col">15</div>
-                            <div class="col total-text">1234</div>
-                            <div class="col action-col">
-                                <a href="review_page.html" class="link-review">Review</a>
-                                <span class="divider">/</span>
-                                <a href="#" class="link-delete">Delete</a>
-                            </div>
-                        </div>
-
-                        <!-- Row 2 -->
-                        <div class="result-row">
-                            <div class="col month-text">January</div>
-                            <div class="col">10-19-2025</div>
-                            <div class="col">350</div>
-                            <div class="col">15</div>
-                            <div class="col total-text">1234</div>
-                            <div class="col action-col">
-                                <a href="review_page.html" class="link-review">Review</a>
-                                <span class="divider">/</span>
-                                <a href="#" class="link-delete">Delete</a>
-                            </div>
-                        </div>
-
-                        <!-- Row 3 (HIGHEST Highlight) -->
-                        <div class="result-row">
-                            <div class="col month-text">January</div>
-                            <div class="col">10-19-2025</div>
-                            <div class="col">350</div>
-                            <div class="col">15</div>
-                            <div class="col total-text">
-                                <span class="badge-highest">Highest</span>
-                                1234
-                            </div>
-                            <div class="col action-col">
-                                <a href="review_page.html" class="link-review">Review</a>
-                                <span class="divider">/</span>
-                                <a href="#" class="link-delete">Delete</a>
-                            </div>
-                        </div>
-
-                        <!-- Row 4 -->
-                        <div class="result-row">
-                            <div class="col month-text">January</div>
-                            <div class="col">10-19-2025</div>
-                            <div class="col">350</div>
-                            <div class="col">15</div>
-                            <div class="col total-text">1234</div>
-                            <div class="col action-col">
-                                <a href="review_page.html" class="link-review">Review</a>
-                                <span class="divider">/</span>
-                                <a href="#" class="link-delete">Delete</a>
-                            </div>
-                        </div>
-                         <!-- Row 5 -->
-                         <div class="result-row">
-                            <div class="col month-text">January</div>
-                            <div class="col">10-19-2025</div>
-                            <div class="col">350</div>
-                            <div class="col">15</div>
-                            <div class="col total-text">1234</div>
-                            <div class="col action-col">
-                                <a href="review_page.html" class="link-review">Review</a>
-                                <span class="divider">/</span>
-                                <a href="#" class="link-delete">Delete</a>
-                            </div>
-                        </div>
-
+                    <div class="table-responsive">
+                        <table id="myTable" border="">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Consumption (kWh)</th>
+                                    <th>Rate (₱/kWh)</th>
+                                    <th>Total Bill (₱)</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="6" style="text-align: center; color: #666; padding: 20px;">Loading data...</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
+
                 </div>
 
             </div>
         </main>
     </div>
 
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Check authentication on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            const session = await initAuth();
+            if (session) {
+                await loadCalculations();
+            }
+        });
+
+        async function loadCalculations() {
+            const user = await getCurrentUser();
+            if (!user) {
+                return;
+            }
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from('calculations')
+                    .select('*')
+                    .eq('user_id', user.id)
+                    .order('created_at', { ascending: false });
+
+                if (error) {
+                    console.error('Error loading calculations:', error);
+                    document.querySelector('tbody').innerHTML = `
+                        <tr>
+                            <td colspan="6" style="text-align: center; color: #d9534f; padding: 20px;">
+                                Error loading data: ${error.message}
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+
+                const table = document.getElementById("myTable");
+                const tbody = table.querySelector('tbody');
+                
+                // Clear existing rows
+                tbody.innerHTML = '';
+
+                if (data && data.length > 0) {
+                    // Add each calculation as a row
+                    data.forEach(calc => {
+                        var row = tbody.insertRow();
+                        
+                        var cellMonth = row.insertCell(0);
+                        var cellPowerConsumption = row.insertCell(1);
+                        var cellCostPerKwh = row.insertCell(2);
+                        var cellResult = row.insertCell(3);
+                        var cellDate = row.insertCell(4);
+                        var cellAction = row.insertCell(5);
+
+                        // Format date
+                        const date = new Date(calc.created_at);
+                        const formattedDate = date.toLocaleDateString('en-US', { 
+                            year: 'numeric', 
+                            month: 'short', 
+                            day: 'numeric' 
+                        });
+
+                        cellMonth.innerHTML = calc.month;
+                        cellPowerConsumption.innerHTML = parseFloat(calc.power_consumption).toFixed(2);
+                        cellCostPerKwh.innerHTML = "₱ " + parseFloat(calc.cost_per_kwh).toFixed(2);
+                        
+                        // Use total_bill instead of result
+                        cellResult.innerHTML = "₱ " + parseFloat(calc.total_bill).toFixed(2);
+                        cellResult.style.fontWeight = 'bold';
+                        cellResult.style.color = 'rgb(119, 139, 136)';
+                        
+                        cellDate.innerHTML = formattedDate;
+                        cellDate.style.fontSize = '12px';
+                        cellDate.style.color = '#666';
+
+                        // Add delete button
+                        cellAction.innerHTML = `
+                            <button onclick="deleteCalculation(${calc.id})" 
+                                    style="padding: 5px 15px; 
+                                           background-color: rgb(200, 80, 80); 
+                                           color: white; 
+                                           border: none; 
+                                           border-radius: 8px; 
+                                           cursor: pointer; 
+                                           font-size: 12px;
+                                           font-weight: bold;">
+                                Delete
+                            </button>
+                        `;
+                        cellAction.style.textAlign = 'center';
+                    });
+                } else {
+                    // Show empty message
+                    var emptyRow = tbody.insertRow();
+                    emptyRow.className = 'empty-row';
+                    var emptyCell = emptyRow.insertCell(0);
+                    emptyCell.colSpan = 6;
+                    emptyCell.style.textAlign = 'center';
+                    emptyCell.style.padding = '30px';
+                    emptyCell.style.color = '#666';
+                    emptyCell.innerHTML = `
+                        No calculations yet. 
+                        <a href="calculator_page.html" style="color: rgb(119, 139, 136); font-weight: bold;">
+                            Calculate your first bill
+                        </a>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.querySelector('tbody').innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; color: #d9534f; padding: 20px;">
+                            Error loading calculations: ${error.message}
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        async function deleteCalculation(id) {
+            if (!confirm('Are you sure you want to delete this calculation?')) {
+                return;
+            }
+
+            try {
+                const { error } = await supabaseClient
+                    .from('calculations')
+                    .delete()
+                    .eq('id', id);
+
+                if (error) {
+                    alert('Error deleting calculation: ' + error.message);
+                    return;
+                }
+
+                alert('Calculation deleted successfully!');
+                await loadCalculations(); // Reload the table
+            } catch (error) {
+                alert('Error deleting calculation: ' + error.message);
+            }
+        }
+
+        async function deleteAllCalculations() {
+            if (!confirm('Are you sure you want to delete ALL calculations? This cannot be undone!')) {
+                return;
+            }
+
+            const user = await getCurrentUser();
+            if (!user) return;
+
+            try {
+                const { error } = await supabaseClient
+                    .from('calculations')
+                    .delete()
+                    .eq('user_id', user.id);
+
+                if (error) {
+                    alert('Error deleting calculations: ' + error.message);
+                    return;
+                }
+
+                alert('All calculations deleted successfully!');
+                await loadCalculations(); // Reload the table
+            } catch (error) {
+                alert('Error deleting calculations: ' + error.message);
+            }
+        }
+
+        async function handleLogout() {
+            const success = await signOut();
+            if (success) {
+                window.location.href = 'login_page.html';
+            } else {
+                alert('Error logging out. Please try again.');
+            }
+        }
+    </script>
 </body>
 </html>

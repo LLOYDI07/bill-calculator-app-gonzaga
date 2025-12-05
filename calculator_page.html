@@ -5,19 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="css/calculator_page.css">
     <link rel="icon" type="image/x-icon" href="images/logo.png">
-    <title>Electric Bill Calculator - Calculator</title>
+    <title>Electric Bill Calculator</title>
 </head>
 <body>
 
-    <div class="dot-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-
-
-    <div class="container-bar2">
-        <!-- Sidebar -->
+    <div class="app-container">
         <aside class="sidebar">
             <div class="logo-section">
                 <img src="images/logo.png" alt="Logo" class="logo">
@@ -29,7 +21,6 @@
                     <img src="images/dashboard_icon.png" alt="icon" class="nav-icon">
                     <span>Dashboard</span>
                 </a>
-                <!-- Active class is here now -->
                 <a href="#" class="nav-item active">
                     <img src="images/calculator_icon.png" alt="icon" class="nav-icon">
                     <span>Calculator</span>
@@ -46,57 +37,192 @@
         </aside>
 
         <main class="main-content">
-            <div class="content-wrapper">
-                
-                <!-- Calculator Card -->
-                <div class="calculator-card">
 
+            <div class="content-wrapper">
+               
+                <div class="calculator-card">
                     <h2 class="form-title">Calculate your Bill now!</h2>
 
-                    <form action="calculate-form">
-                        <!-- Month Dropdown -->
+                    <form id="calculator-form" onsubmit="event.preventDefault()">
                         <div class="input-group">
-                            <!-- Month Input (Changed from Dropdown) -->
-                            <div class="input-group">
-                                <label class="input-label">Month</label>
-                                <input type="text" class="input-field" name="month" placeholder="Enter Month">
-                            </div>
+                            <label class="input-label">Month</label>
+                            <input type="text" class="input-field" id="month" name="month" placeholder=" (e.g., January 2024)">
                         </div>
 
-                        <!-- Power Consumption -->
                         <div class="input-group">
                             <label class="input-label">Power consumption (kWh)</label>
-                            <input type="number" class="input-field" name="consumption" placeholder="Enter power consumption">
+                            <input type="number" step="0.01" class="input-field" id="power_consumption" name="consumption" placeholder="Enter power consumption">
                         </div>
 
-                        <!-- Cost per kWh -->
                         <div class="input-group">
-                            <label class="input-label">Cost per kWh(P)</label>
-                            <input type="number" class="input-field" name="cost" placeholder="Enter cost per kWh">
+                            <label class="input-label">Cost per kWh(₱)</label>
+                            <input type="number" step="0.01" class="input-field" id="cost_per_kwh" name="cost" placeholder="Enter cost per kWh">
                         </div>
 
-                        <!-- Action Buttons Row -->
                         <div class="action-row">
-                            <button type="button" class="btn-calculate">Calculate</button>
+                            <button type="button" class="btn-calculate" id="btn_calculate">Calculate</button> 
                             <button type="reset" class="btn-reset">
-                                <!-- Refresh Icon -->
                                 &#x21bb; 
                             </button>
                         </div>
                     </form>
 
-                    <!-- Result Box -->
                     <div class="result-box">
-                        <p class="result-label">Total bill for January</p>
-                        <h1 class="result-price">$0</h1>
-                        <button class="btn-save">Save result</button>
+                        <p class="result-label">Total bill</p> 
+                        <h1 class="result-price" id="calculation-result">₱ 0.00</h1> 
                     </div>
-
                 </div>
-
+                
+                <div class="history-container" id="history-container">
+                    <h3 style="color: rgb(70, 90, 88); margin-bottom: 15px;">Recent Calculations</h3>
+                    <div id="history-list"></div>
+                </div>
             </div>
         </main>
     </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Check authentication on page load
+        document.addEventListener("DOMContentLoaded", async () => {
+            await initAuth();
+            await loadRecentCalculations();
+        });
+
+        // Reset form also resets the result display
+        document.querySelector('.btn-reset').addEventListener('click', function() {
+            document.getElementById('calculation-result').textContent = '₱ 0.00';
+        });
+
+        // Calculate button handler
+        document.getElementById("btn_calculate").addEventListener("click", async function () {
+            const monthInput = document.getElementById("month");
+            const powerConsumptionInput = document.getElementById("power_consumption");
+            const costPerKwhInput = document.getElementById("cost_per_kwh");
+            const resultDisplay = document.getElementById("calculation-result");
+
+            // Validate inputs
+            if (!monthInput.value || !powerConsumptionInput.value || !costPerKwhInput.value) {
+                alert("Please fill in all fields!");
+                return;
+            }
+
+            // Validate numbers are positive
+            const powerConsumption = parseFloat(powerConsumptionInput.value);
+            const costPerKwh = parseFloat(costPerKwhInput.value);
+
+            if (powerConsumption <= 0 || costPerKwh <= 0) {
+                alert("Power consumption and cost must be positive numbers!");
+                return;
+            }
+
+            // Get current user
+            const user = await getCurrentUser();
+            if (!user) {
+                alert("You must be logged in to save calculations!");
+                window.location.href = "login_page.html";
+                return;
+            }
+
+            // Calculate result
+            const resultValue = costPerKwh * powerConsumption;
+
+            // Display result
+            resultDisplay.textContent = `₱ ${resultValue.toFixed(2)}`;
+
+            // Save to Supabase
+            try {
+                const { data, error } = await supabaseClient
+                    .from("calculations")
+                    .insert([
+                        {
+                            user_id: user.id,
+                            month: monthInput.value,
+                            power_consumption: powerConsumption,
+                            cost_per_kwh: costPerKwh,
+                            total_bill: resultValue,
+                            created_at: new Date().toISOString()
+                        },
+                    ])
+                    .select();
+
+                if (error) {
+                    console.error("Error saving calculation:", error);
+                    alert("Failed to save calculation: " + error.message);
+                    return;
+                }
+
+                console.log("Calculation saved successfully:", data);
+                alert("Calculation saved successfully!");
+
+                // Reload recent calculations
+                await loadRecentCalculations();
+
+                // Clear form
+                monthInput.value = "";
+                powerConsumptionInput.value = "";
+                costPerKwhInput.value = "";
+
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Error saving calculation: " + error.message);
+            }
+        });
+
+        // Load recent calculations from database
+        async function loadRecentCalculations() {
+            const user = await getCurrentUser();
+            if (!user) return;
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from("calculations")
+                    .select("*")
+                    .eq("user_id", user.id)
+                    .order("created_at", { ascending: false })
+                    .limit(5);
+
+                if (error) {
+                    console.error("Error loading calculations:", error);
+                    return;
+                }
+
+                const historyList = document.getElementById("history-list");
+                
+                if (!data || data.length === 0) {
+                    historyList.innerHTML = '<p style="color: rgb(90, 110, 108); font-size: 14px;">No calculations yet. Start calculating!</p>';
+                    return;
+                }
+
+                historyList.innerHTML = data.map(calc => `
+                    <div style="background: rgba(255, 255, 255, 0.3); padding: 15px; border-radius: 10px; margin-bottom: 10px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <strong style="color: rgb(70, 90, 88);">${calc.month}</strong>
+                            <strong style="color: rgb(119, 139, 136);">₱ ${calc.total_bill.toFixed(2)}</strong>
+                        </div>
+                        <div style="font-size: 13px; color: rgb(90, 110, 108);">
+                            ${calc.power_consumption} kWh × ₱${calc.cost_per_kwh} per kWh
+                        </div>
+                    </div>
+                `).join('');
+
+            } catch (error) {
+                console.error("Error loading calculations:", error);
+            }
+        }
+
+        async function handleLogout() {
+            const success = await signOut();
+            if (success) {
+                window.location.href = "login_page.html";
+            } else {
+                alert("Error logging out. Please try again.");
+            }
+        }
+    </script>
 
 </body>
 </html>

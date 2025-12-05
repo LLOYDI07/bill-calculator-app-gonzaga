@@ -9,12 +9,6 @@
 </head>
 <body>
 
-    <div class="dot-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-    </div>
-
 
     <div class="container-bar">
         <aside class="sidebar">
@@ -79,7 +73,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/supabase-config.js"></script>
     <script src="js/auth.js"></script>
-
     <script>
         
         // Check authentication on page load
@@ -101,7 +94,7 @@
         async function handleLogout() {
             const success = await signOut();
             if (success) {
-                window.location.href = 'login.html';
+                window.location.href = 'login_page.html';
             } else {
                 alert('Error logging out. Please try again.');
             }

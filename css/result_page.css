@@ -7,27 +7,12 @@ body {
     overflow: hidden;
 }
 
-.dot-icon {
-    position: absolute;
-    top: 53px;
-    right: 40px;
-    display: flex;
-    gap: 8px;
-}
-
-.dot-icon span {
-    display: block; 
-    width: 12px; 
-    height: 12px;
-    border-radius: 50%; 
-    background: rgb(92, 112, 109);
-}
-/* --- Layout Container --- */
-.container-bar3 { 
+.app-container { 
     display: flex; 
     height: 100%; 
 }
 
+/* Sidebar */
 .sidebar {
     width: 260px;
     background-color: rgb(128, 176, 169);
@@ -37,7 +22,8 @@ body {
     box-sizing: border-box;
     border-top-right-radius: 30px; 
     border-bottom-right-radius: 30px;
-    box-shadow: 5px 0 15px rgba(0,0,0,0.05);
+    box-shadow: 5px 0 15px rgba(0,0,0,0.15);
+    z-index: 10;
 }
 
 .logo-section { 
@@ -62,7 +48,6 @@ body {
     opacity: 0.8;
 }
 
-/* --- Navigation Menu --- */
 .nav-menu { 
     display: flex; 
     flex-direction: column; 
@@ -97,31 +82,29 @@ body {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-
-/* --- Main Content --- */
+/* Main Content */
 .main-content {
     flex: 1;
     display: flex;
     padding: 40px 60px;
     flex-direction: column;
     position: relative;
-    justify-content: center; 
+    justify-content: center;
+    align-items: center;
 }
 
 .content-wrapper { 
     max-width: 1200px;
-
+    width: 100%;
 }
 
-/* --- Results Table Area --- */
+/* Results Container */
 .results-container {
     background: rgba(255, 255, 255, 0.15);
     padding: 25px 30px 40px 30px;
     border-radius: 20px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-    min-width: 800px; 
-    margin-left: 20px;
-    margin-top: 50px;
+    min-width: 800px;
 }
 
 .page-title {
@@ -130,7 +113,7 @@ body {
     margin-bottom: 25px;
     font-size: 22px;
     text-shadow: 1px 1px 4px;
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
 /* Header Grid */
@@ -152,7 +135,7 @@ body {
 }
 
 .result-row {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.25);
     border-radius: 20px;
     padding: 15px 20px;
     display: grid;
@@ -162,6 +145,11 @@ body {
     font-size: 14px;
     font-weight: bold;
     box-shadow: 0 5px 15px rgba(0,0,0,0.10);
+    transition: 0.2s;
+}
+
+.result-row:hover {
+    background: rgba(255, 255, 255, 0.35);
 }
 
 .action-col {
@@ -179,7 +167,7 @@ body {
     align-items: center;
 }
 
-/* --- Badge Highest --- */
+/* Badge Highest */
 .badge-highest {
     background-color: #7ab8b0;
     color: white;
@@ -188,11 +176,11 @@ body {
     border-radius: 4px;
     margin-right: 8px;
     text-transform: uppercase;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.10);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.10);
     font-weight: bold;
 }
 
-/* --- Action Links --- */
+/* Action Links */
 .link-review {
     color: rgb(70, 90, 88);
     text-decoration: underline;
@@ -200,15 +188,52 @@ body {
     font-size: 12px;
 }
 
+.link-review:hover {
+    color: rgb(50, 70, 68);
+}
+
 .link-delete {
-    color: #e74c3c; /* Redish color */
+    color: #e74c3c;
     text-decoration: underline;
     cursor: pointer;
     font-size: 12px;
+}
+
+.link-delete:hover {
+    color: #c0392b;
 }
 
 .divider {
     margin: 0 3px;
     color: rgb(150,150,150);
     font-size: 12px;
+}
+
+.empty-message {
+    text-align: center;
+    padding: 40px;
+    color: rgb(90, 110, 108);
+    font-size: 14px;
+}
+
+.empty-message a {
+    color: rgb(119, 139, 136);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.empty-message a:hover {
+    text-decoration: underline;
+}
+
+.loading-message {
+    text-align: center;
+    padding: 40px;
+    color: rgb(90, 110, 108);
+    font-size: 14px;
+}
+
+.table-responsive {
+    border: none;
+    justify-items: center;
 }
