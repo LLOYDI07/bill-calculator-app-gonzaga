@@ -197,54 +197,56 @@
             }
         }
 
-        async function deleteCalculation(id) {
-            if (!confirm('Are you sure you want to delete this calculation?')) {
-                return;
-            }
-
-            try {
-                const { error } = await supabaseClient
-                    .from('calculations')
-                    .delete()
-                    .eq('id', id);
-
-                if (error) {
-                    alert('Error deleting calculation: ' + error.message);
-                    return;
-                }
-
-                alert('Calculation deleted successfully!');
-                await loadCalculations(); // Reload the table
-            } catch (error) {
-                alert('Error deleting calculation: ' + error.message);
-            }
-        }
-
         async function deleteAllCalculations() {
-            if (!confirm('Are you sure you want to delete ALL calculations? This cannot be undone!')) {
-                return;
-            }
+    if (!confirm("Are you sure you want to delete ALL calculations?")) {
+        return;
+    }
 
-            const user = await getCurrentUser();
-            if (!user) return;
+    const user = await getCurrentUser();
+    if (!user) return;
 
-            try {
-                const { error } = await supabaseClient
-                    .from('calculations')
-                    .delete()
-                    .eq('user_id', user.id);
+    try {
+        const { error } = await supabaseClient
+            .from('calculations')
+            .delete()
+            .eq('user_id', user.id);
 
-                if (error) {
-                    alert('Error deleting calculations: ' + error.message);
-                    return;
-                }
-
-                alert('All calculations deleted successfully!');
-                await loadCalculations(); // Reload the table
-            } catch (error) {
-                alert('Error deleting calculations: ' + error.message);
-            }
+        if (error) {
+            alert("Error clearing all records: " + error.message);
+            return;
         }
+
+        alert("All calculations cleared!");
+        await loadCalculations();
+
+    } catch (err) {
+        alert("Error: " + err.message);
+    }
+}
+
+        async function deleteCalculation(id) {
+    if (!confirm("Delete this calculation?")) {
+        return;
+    }
+
+    try {
+        const { error } = await supabaseClient
+            .from('calculations')
+            .delete()
+            .eq('id', Number(id)); // force ID to integer
+
+        if (error) {
+            alert("Error deleting calculation: " + error.message);
+            return;
+        }
+
+        alert("Calculation deleted successfully!");
+        await loadCalculations();
+
+    } catch (error) {
+        alert("Error deleting calculation: " + error.message);
+    }
+}
 
         async function handleLogout() {
             const success = await signOut();

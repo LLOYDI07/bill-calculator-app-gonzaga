@@ -99,10 +99,11 @@ body {
     max-width: 1200px;
 }
 
-.greetings-text {
+.welcome-text {
     font-size: 32px;
     color: rgb(80, 100, 98);
     margin-bottom: 40px;
+    width: 600px;
     line-height: 1.4;
     font-weight: bold;
     text-shadow: 1px 1px 4px;
@@ -144,12 +145,12 @@ body {
 }
 
 .month-item {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.15);
     padding: 10px 20px;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.10);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
 }
 
 .month-name {

@@ -41,7 +41,8 @@
         <main class="main-content">
             <!-- Dashboard Content -->
             <div class="content-wrapper">
-                <h1 class="greetings-text">Start calculating today,<br> saving energy and money<br> begins here!</h1>
+
+                <h1 class="welcome-text">Welcome back! Start calculating today,<br> saving energy and money begins  here!</h1>
 
                 <!-- The recently result  -->
                 <div class="recent-results">
@@ -85,7 +86,7 @@
                     const welcomeText = document.querySelector('.welcome-text');
                     const userName = user.user_metadata?.full_name || user.email;
                     if (welcomeText) {
-                        welcomeText.textContent = `Welcome back, ${userName}! Manage your electricity bill calculations.`;
+                        welcomeText.textContent = `Welcome back, ${userName}! Start calculating today, saving energy and money begins here!`;
                     }
                 }
             }

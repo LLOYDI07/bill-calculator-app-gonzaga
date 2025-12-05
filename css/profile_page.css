@@ -134,7 +134,9 @@ body {
 }
 
 /* --- Toggle Logic --- */
-.state-controller { display: none; }
+.state-controller { 
+    display: none; 
+}
 
 .profile-card {
     background: rgba(255, 255, 255, 0.15);
@@ -176,10 +178,11 @@ body {
 
 .input-field {
     width: 100%; 
-    padding: 12px 15px; 
+    padding: 15px 15px; 
     border: none; 
     border-radius: 15px;
-    background: rgba(255, 255, 255, 0.25); 
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15); 
     box-sizing: border-box;
     font-size: 14px; 
     color: rgb(60, 80, 78); 

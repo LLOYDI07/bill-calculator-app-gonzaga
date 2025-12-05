@@ -46,7 +46,7 @@
                     <form id="calculator-form" onsubmit="event.preventDefault()">
                         <div class="input-group">
                             <label class="input-label">Month</label>
-                            <input type="text" class="input-field" id="month" name="month" placeholder=" (e.g., January 2024)">
+                            <input type="text" class="input-field" id="month" name="month" placeholder="(e.g., January 2024)">
                         </div>
 
                         <div class="input-group">
@@ -74,7 +74,7 @@
                 </div>
                 
                 <div class="history-container" id="history-container">
-                    <h3 style="color: rgb(70, 90, 88); margin-bottom: 15px;">Recent Calculations</h3>
+                    <h3>Recent Calculations</h3>
                     <div id="history-list"></div>
                 </div>
             </div>
@@ -158,6 +158,9 @@
                 console.log("Calculation saved successfully:", data);
                 alert("Calculation saved successfully!");
 
+                // Show history container with animation
+                document.getElementById('history-container').classList.add('show');
+
                 // Reload recent calculations
                 await loadRecentCalculations();
 
@@ -194,8 +197,13 @@
                 
                 if (!data || data.length === 0) {
                     historyList.innerHTML = '<p style="color: rgb(90, 110, 108); font-size: 14px;">No calculations yet. Start calculating!</p>';
+                    // Hide history container if no data
+                    document.getElementById('history-container').classList.remove('show');
                     return;
                 }
+
+                // Show history container if there's data
+                document.getElementById('history-container').classList.add('show');
 
                 historyList.innerHTML = data.map(calc => `
                     <div style="background: rgba(255, 255, 255, 0.3); padding: 15px; border-radius: 10px; margin-bottom: 10px;">

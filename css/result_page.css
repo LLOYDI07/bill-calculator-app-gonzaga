@@ -167,19 +167,6 @@ body {
     align-items: center;
 }
 
-/* Badge Highest */
-.badge-highest {
-    background-color: #7ab8b0;
-    color: white;
-    font-size: 10px;
-    padding: 3px 6px;
-    border-radius: 4px;
-    margin-right: 8px;
-    text-transform: uppercase;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.10);
-    font-weight: bold;
-}
-
 /* Action Links */
 .link-review {
     color: rgb(70, 90, 88);
