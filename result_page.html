@@ -57,7 +57,7 @@
                                     <th>Month</th>
                                     <th>Consumption (kWh)</th>
                                     <th>Rate (₱/kWh)</th>
-                                    <th>Total Bill (₱)</th>
+                                    <th>Result (₱)</th>
                                     <th>Date</th>
                                     <th>Action</th>
                                 </tr>
@@ -98,7 +98,7 @@
             try {
                 const { data, error } = await supabaseClient
                     .from('calculations')
-                    .select('*')
+                    .select('id, user_id, month, power_consumption, cost_per_kwh, result, created_at')
                     .eq('user_id', user.id)
                     .order('created_at', { ascending: false });
 
@@ -143,9 +143,7 @@
                         cellMonth.innerHTML = calc.month;
                         cellPowerConsumption.innerHTML = parseFloat(calc.power_consumption).toFixed(2);
                         cellCostPerKwh.innerHTML = "₱ " + parseFloat(calc.cost_per_kwh).toFixed(2);
-                        
-                        // Use total_bill instead of result
-                        cellResult.innerHTML = "₱ " + parseFloat(calc.total_bill).toFixed(2);
+                        cellResult.innerHTML = "₱ " + parseFloat(calc.result).toFixed(2);
                         cellResult.style.fontWeight = 'bold';
                         cellResult.style.color = 'rgb(119, 139, 136)';
                         
@@ -198,55 +196,55 @@
         }
 
         async function deleteAllCalculations() {
-    if (!confirm("Are you sure you want to delete ALL calculations?")) {
-        return;
-    }
+            if (!confirm("Are you sure you want to delete ALL calculations?")) {
+                return;
+            }
 
-    const user = await getCurrentUser();
-    if (!user) return;
+            const user = await getCurrentUser();
+            if (!user) return;
 
-    try {
-        const { error } = await supabaseClient
-            .from('calculations')
-            .delete()
-            .eq('user_id', user.id);
+            try {
+                const { error } = await supabaseClient
+                    .from('calculations')
+                    .delete()
+                    .eq('user_id', user.id);
 
-        if (error) {
-            alert("Error clearing all records: " + error.message);
-            return;
+                if (error) {
+                    alert("Error clearing all records: " + error.message);
+                    return;
+                }
+
+                alert("All calculations cleared!");
+                await loadCalculations();
+
+            } catch (err) {
+                alert("Error: " + err.message);
+            }
         }
-
-        alert("All calculations cleared!");
-        await loadCalculations();
-
-    } catch (err) {
-        alert("Error: " + err.message);
-    }
-}
 
         async function deleteCalculation(id) {
-    if (!confirm("Delete this calculation?")) {
-        return;
-    }
+            if (!confirm("Delete this calculation?")) {
+                return;
+            }
 
-    try {
-        const { error } = await supabaseClient
-            .from('calculations')
-            .delete()
-            .eq('id', Number(id)); // force ID to integer
+            try {
+                const { error } = await supabaseClient
+                    .from('calculations')
+                    .delete()
+                    .eq('id', Number(id));
 
-        if (error) {
-            alert("Error deleting calculation: " + error.message);
-            return;
+                if (error) {
+                    alert("Error deleting calculation: " + error.message);
+                    return;
+                }
+
+                alert("Calculation deleted successfully!");
+                await loadCalculations();
+
+            } catch (error) {
+                alert("Error deleting calculation: " + error.message);
+            }
         }
-
-        alert("Calculation deleted successfully!");
-        await loadCalculations();
-
-    } catch (error) {
-        alert("Error deleting calculation: " + error.message);
-    }
-}
 
         async function handleLogout() {
             const success = await signOut();

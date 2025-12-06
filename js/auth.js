@@ -19,7 +19,7 @@ async function initAuth() {
     return session;
 }
 
-// Redirect to dashboard if already logged in (for login/register pages)
+// Redirect to dashboard if already logged in (for login/registers pages)
 async function redirectIfAuthenticated() {
     const session = await checkAuth();
     if (session) {
